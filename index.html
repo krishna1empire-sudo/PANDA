@@ -1,0 +1,625 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>PANDA FAMILY FOOD ROUTINE</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Mukta:wght@400;600;700&display=swap">
+<style>
+/* Layout: phone-first family kitchen app. Header, one tab per job (Aaj, Hafta, Guest, Bill, Admin), bottom nav. */
+:root{
+  --bg:#EFF3EC; --surface:#FFFFFF; --ink:#14231A; --mute:#566A5C; --line:#D9E2D5;
+  --brand:#1D6B46; --on-brand:#FFFFFF; --haldi:#E3A008; --haldi-soft:#FBF0CC;
+  --ok:#1B8A4B; --on-ok:#FFFFFF; --ok-soft:#DCF2E3;
+  --no:#BE3B2B; --on-no:#FFFFFF; --no-soft:#FADFDA;
+  --font-d:"Baloo 2","Trebuchet MS",sans-serif; --font-b:"Mukta","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1812; --surface:#16241C; --ink:#E7F0E8; --mute:#9DB0A2; --line:#27392E;
+  --brand:#4FB985; --on-brand:#0B1710; --haldi:#F0B72F; --haldi-soft:#3A3012;
+  --ok:#4FCB83; --on-ok:#07140C; --ok-soft:#173B27;
+  --no:#F0705F; --on-no:#2A0905; --no-soft:#452019; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0E1812; --surface:#16241C; --ink:#E7F0E8; --mute:#9DB0A2; --line:#27392E;
+  --brand:#4FB985; --on-brand:#0B1710; --haldi:#F0B72F; --haldi-soft:#3A3012;
+  --ok:#4FCB83; --on-ok:#07140C; --ok-soft:#173B27;
+  --no:#F0705F; --on-no:#2A0905; --no-soft:#452019; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--font-b);
+  padding-block:0 104px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:660px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:var(--font-d);margin:0;line-height:1.15;text-wrap:balance}
+h1{font-size:23px;letter-spacing:.03em}h2{font-size:20px}h3{font-size:16px}
+header{padding-top:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.sub{color:var(--mute);font-size:14px}
+.pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 9px;border-radius:99px;background:var(--haldi-soft);color:var(--ink);border:1px solid var(--haldi)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
+.mute{color:var(--mute)}
+.small{font-size:13px}
+.num{font-variant-numeric:tabular-nums}
+.big{font-family:var(--font-d);font-size:26px;font-weight:700;line-height:1}
+button,input,select{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:600;min-height:42px}
+.btn:focus-visible,.tab:focus-visible,.chip:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--haldi);outline-offset:1px}
+.btn.brand{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.btn.ok{background:var(--ok);color:var(--on-ok);border-color:var(--ok)}
+.btn.no{background:var(--no);color:var(--on-no);border-color:var(--no)}
+.btn.ghost{background:transparent}
+.btn.sm{min-height:34px;padding:5px 10px;font-size:14px}
+.btn[disabled]{opacity:.45;cursor:default}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.yn .btn{font-size:16px}
+input,select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:42px;width:100%;min-width:0}
+input[type=checkbox]{width:20px;height:20px;min-height:0;accent-color:var(--brand)}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mute);min-width:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:3px 11px;font-size:14px;cursor:default;font-weight:600}
+button.chip{cursor:pointer}
+.chip.on{background:var(--ok-soft);border-color:var(--ok)}
+.chip.off{background:var(--no-soft);border-color:var(--no);text-decoration:line-through;color:var(--mute)}
+.chip.sel{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:var(--surface);border-top:1px solid var(--line);
+  padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));z-index:5}
+.nav-in{display:flex;gap:4px;width:100%;max-width:660px}
+.tab{flex:1;border:0;background:transparent;border-radius:10px;padding:8px 2px;font:600 14px var(--font-b);color:var(--mute);cursor:pointer;min-height:44px}
+.tab.on{background:var(--brand);color:var(--on-brand)}
+.daynav{display:flex;align-items:center;gap:8px}
+.daynav .t{flex:1;text-align:center;font-family:var(--font-d);font-size:19px;font-weight:700}
+.meal-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.dishes{font-size:17px;font-weight:600}
+.table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:420px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+td.r,th.r{text-align:right}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--ok)}
+.tabs2{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.bad{color:var(--no);font-weight:700}.good{color:var(--ok);font-weight:700}
+.note{background:var(--haldi-soft);border:1px solid var(--haldi);border-radius:10px;padding:10px 12px;font-size:14px}
+.empty{text-align:center;padding:22px 12px;color:var(--mute)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:9;max-width:90%}
+.wk{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:14px}
+.wk b{color:var(--mute);font-weight:600}
+@media (prefers-reduced-motion:no-preference){.btn{transition:background .12s}}
+</style>
+
+<div class="wrap">
+  <header id="hd"></header>
+  <main id="app" style="display:flex;flex-direction:column;gap:14px"><div class="empty">Load ho raha hai...</div></main>
+</div>
+<nav class="nav"><div class="nav-in" id="nav"></div></nav>
+<div id="toast" hidden></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ====== YAHAN APNA FIREBASE CONFIG PASTE KARO (Project settings > Your apps > Web app) ====== */
+window.FIREBASE_CONFIG={
+  apiKey:"AIzaSyByLH-enz4ZZqBlpeDU0nCURTPZu5zIZkc",
+  authDomain:"panda-family-food-routine.firebaseapp.com",
+  projectId:"panda-family-food-routine",
+  storageBucket:"panda-family-food-routine.firebasestorage.app",
+  messagingSenderId:"593426660629",
+  appId:"1:593426660629:web:127b6705d4999f39227d1c"
+};
+/* ====== BAS ITNA HI. NEECHE KUCH MAT BADLO ====== */
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$('#app'),hd=$('#hd'),nav=$('#nav'),toastEl=$('#toast');
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse=s=>{const a=s.split('-').map(Number);return new Date(a[0],a[1]-1,a[2])};
+const addDays=(s,n)=>{const d=parse(s);d.setDate(d.getDate()+n);return iso(d)};
+const DOW=['sun','mon','tue','wed','thu','fri','sat'];
+const DAYN={sun:'Raviwar',mon:'Somwar',tue:'Mangalwar',wed:'Budhwar',thu:'Guruwar',fri:'Shukrawar',sat:'Shaniwar'};
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MEALS=[['b','Nashta','8:00 AM','Nashta'],['l','Dopahar ka khana','1:00 PM','Dopahar'],['s','Shaam ka snack','4:30 PM','Snack'],['d','Raat ka khana','8:00 PM','Raat']];
+const rupee=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const todayS=()=>iso(new Date());
+const fmtDate=s=>{const d=parse(s);return DAYN[DOW[d.getDay()]]+' · '+d.getDate()+' '+MON[d.getMonth()]};
+const fmtMonth=m=>{const a=m.split('-');return MON[+a[1]-1]+' '+a[0]};
+const num=v=>{const x=parseFloat(v);return isFinite(x)?x:0};
+const small=u=>u==='kg'?'g':u==='L'?'ml':u;
+const toDisp=(q,u)=>(u==='kg'||u==='L')?Math.round(q*10000)/10:q;
+const toBase=(q,u)=>(u==='kg'||u==='L')?q/1000:q;
+function fmtQty(q,u){const neg=q<0?'-':'';q=Math.abs(q);
+  if(u==='kg')return neg+(q<1?Math.round(q*1000)+' g':(+q.toFixed(2))+' kg');
+  if(u==='L')return neg+(q<1?Math.round(q*1000)+' ml':(+q.toFixed(2))+' L');
+  return neg+(+q.toFixed(1))+' '+u;}
+
+const S={dishes:{},stock:{},menu:{},members:{},att:{},guests:{},purch:{},pay:{},bills:{},exp:{},snap:{},ready:{}};
+const UI={tab:'today',date:todayS(),month:todayS().slice(0,7),adm:'menu',edit:null,cf:null,mdate:todayS(),bill:{date:todayS(),note:'',amt:'',for:''},
+  xp:{item:'',amt:''},nm:{n:'',p:'',w:''},lg:{p:'',w:'',err:''},pwId:null,pwVal:'',pwP:'',guest:{date:addDays(todayS(),1),n:1,name:'',b:false,l:true,s:false,d:true},
+  payAmt:'',shopStart:addDays(todayS(),1),buy:{},mbuy:{item:'',q:'',a:''},sedit:null,dedit:null,newMember:''};
+let db=null,user=null,me={id:null,name:''},isAdmin=false,adminOK=false,role=null,canWrite=true,profiles={},reg=true,authBusy=false,tok=null;
+
+function toast(m){toastEl.textContent=m;toastEl.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>toastEl.hidden=true,2600)}
+async function w(fn){try{await fn()}catch(e){toast('Save nahi hua: '+((e&&e.message)||'dobara try karo'))}}
+
+/* ---------- data helpers ---------- */
+function members(){return Object.keys(S.members).filter(i=>!S.members[i].off).map(i=>({id:i,...S.members[i]}))
+  .sort((a,b)=>nameOf(a.id).localeCompare(nameOf(b.id)))}
+function nameOf(id){const m=S.members[id];if(m&&m.name)return m.name;const p=profiles[id];if(p&&p.name)return p.name;
+  if(id===me.id&&me.name)return me.name;return 'Member'}
+const first=n=>String(n).split(' ')[0];
+function menuFor(date){const o=S.menu[date];const t=(S.menu.template||{})[DOW[parse(date).getDay()]]||{};const m=o||t;
+  const op=m.opt||{},of=m.off||{};
+  return {b:m.b||[],l:m.l||[],s:m.s||[],d:m.d||[],note:m.note||'',
+    opt:{b:op.b||[],l:op.l||[],s:op.s||[],d:op.d||[]},off:{b:!!of.b,l:!!of.l,s:!!of.s,d:!!of.d}}}
+function dishCost(id){const d=S.dishes[id];if(!d)return 0;let c=num(d.extra);
+  (d.ing||[]).forEach(i=>{const s=S.stock[i.s];if(s)c+=num(i.q)*num(s.price)});return c}
+const livePlate=(date,k)=>{const m=menuFor(date);return m.off[k]?0:m[k].reduce((a,id)=>a+dishCost(id),0)};
+const plate=(date,k)=>{const sn=S.snap[date];if(sn&&date<todayS()&&typeof sn[k]==='number')return sn[k];return livePlate(date,k)};
+function autoSnap(){if(!isAdmin||!canWrite||!db||!['dishes','stock','menu','snap'].every(k=>S.ready[k]))return;
+  for(let i=1;i<=60;i++){const d=addDays(todayS(),-i);if(S.snap[d])continue;const o={};let any=false;
+    MEALS.forEach(m=>{const v=livePlate(d,m[0]);o[m[0]]=v;if(v)any=true});
+    if(any){S.snap[d]=o;db.doc('snap/'+d).set(o).catch(()=>{})}}}
+function eats(date,uid,k){const a=S.att[date+'_'+uid];return !(a&&a[k]===false)}
+function guestsOn(date,k){return Object.values(S.guests).filter(g=>g.date===date&&g[k])}
+const guestN=(date,k)=>guestsOn(date,k).reduce((a,g)=>a+num(g.n),0);
+function servings(date,k){if(menuFor(date).off[k])return 0;return members().filter(m=>eats(date,m.id,k)).length+guestN(date,k)}
+function dayCost(date){return MEALS.reduce((a,m)=>a+plate(date,m[0])*servings(date,m[0]),0)}
+function useOn(date,out){const mn=menuFor(date);
+  MEALS.forEach(m=>{const k=m[0],sv=servings(date,k);if(!sv)return;
+    mn[k].forEach(id=>{const d=S.dishes[id];if(!d)return;(d.ing||[]).forEach(i=>{out[i.s]=(out[i.s]||0)+num(i.q)*sv})})})}
+function stockNow(){const today=todayS(),res={};
+  Object.keys(S.stock).forEach(id=>{const s=S.stock[id];const a=s.asOf||today;const use={};
+    for(let d=a;d<=today;d=addDays(d,1))useOn(d,use);
+    let q=num(s.qty);Object.values(S.purch).forEach(p=>{if(p.item===id&&p.date>=a)q+=num(p.qty)});
+    res[id]=q-(use[id]||0)});return res}
+function need7(start){const use={};for(let i=0;i<7;i++)useOn(addDays(start,i),use);return use}
+function monthBill(mo){const today=todayS(),a=mo.split('-').map(Number),days=new Date(a[0],a[1],0).getDate();
+  const per={},tot={till:0,est:0},mem=members();
+  const row=id=>per[id]||(per[id]={id,meals:0,own:0,guest:0});
+  mem.forEach(m=>row(m.id));
+  for(let i=1;i<=days;i++){const d=mo+'-'+pad(i);
+    MEALS.forEach(m=>{const k=m[0],pc=plate(d,k);if(!pc)return;
+      const at=mem.filter(x=>eats(d,x.id,k)),gs=guestsOn(d,k);
+      const gn=gs.reduce((s,g)=>s+num(g.n),0),total=pc*(at.length+gn);
+      if(d<=today){tot.till+=total;at.forEach(x=>{const r=row(x.id);r.meals++;r.own+=pc});
+        gs.forEach(g=>{row(g.by||'?').guest+=pc*num(g.n)})}
+      else tot.est+=total})}
+  return {per,tot}}
+function paidBy(mo){const p={};let all=0;Object.values(S.pay).concat(Object.values(S.exp)).forEach(x=>{if(x.month===mo){p[x.uid]=(p[x.uid]||0)+num(x.amt);all+=num(x.amt)}});return {p,all}}
+function pendMonths(){const cur=todayS().slice(0,7),out=[];
+  for(let i=1;i<=12;i++){const d=parse(cur+'-01');d.setMonth(d.getMonth()-i);const mo=iso(d).slice(0,7),B=monthBill(mo);if(!B.tot.till)continue;
+    const P=paidBy(mo),rows=Object.keys(B.per).map(id=>({id,rem:B.per[id].own+B.per[id].guest-(P.p[id]||0)})).filter(x=>x.rem>0.5);
+    if(rows.length)out.push({mo,rows})}
+  return out}
+function pendCard(){const pm=pendMonths();if(!pm.length)return '<div class="note">Pichle mahine ka koi bill baaki nahi. ✓</div>';
+  let h='<section class="card"><h2>Pichle mahine ka baaki</h2>';
+  pm.forEach(p=>{const tot=p.rows.reduce((a,r)=>a+r.rem,0);
+    h+='<div style="border-top:1px solid var(--line);padding-top:8px"><div class="row between"><b>'+fmtMonth(p.mo)+'</b><b class="num bad">'+rupee(tot)+' baaki</b></div>'+
+    p.rows.map(r=>'<div class="row between"><span>'+esc(r.id==='?'?'Unknown':first(nameOf(r.id)))+(r.id===me.id?' (aap)':'')+'</span><span class="num">'+rupee(r.rem)+(r.id===me.id?' <button class="btn sm brand" data-act="payMonth" data-a="'+p.mo+'" data-b="'+Math.ceil(r.rem)+'">Bharo</button>':'')+'</span></div>').join('')+'</div>'});
+  return h+'</section>'}
+function expForm(mo){const x=UI.xp,l=Object.keys(S.exp).map(id=>({id,...S.exp[id]})).filter(e=>e.uid===me.id&&e.month===mo).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  let h='<section class="card"><h3>Bahar se kharida</h3><div class="small mute">Ghar ke liye kuch kharida? Yahan likho. Aapke naam se admin ko dikhega aur aapke hisaab mein jud jayega.</div>'+
+  '<div class="fields"><label class="f">Kya kharida<input type="text" id="xp-item" value="'+esc(x.item)+'" data-bind="xp.item" maxlength="60"></label>'+
+  '<label class="f">Amount (₹)<input type="number" inputmode="decimal" id="xp-amt" value="'+esc(x.amt)+'" data-bind="xp.amt"></label></div>'+
+  '<button class="btn brand" data-act="expAdd"'+(canWrite?'':' disabled')+'>Add karo</button>';
+  l.forEach(e=>{h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div>'+esc(e.item)+'<div class="small mute">'+esc(e.date)+'</div></div><b class="num">'+rupee(e.amt)+'</b><button class="btn sm" data-act="expDel" data-a="'+esc(e.id)+'">'+(UI.cf==='x'+e.id?'Pakka hatao?':'Hatao')+'</button></div>'});
+  if(l.length)h+='<div class="row between"><span class="mute">Is mahine ka kul</span><b class="num">'+rupee(l.reduce((a,e)=>a+num(e.amt),0))+'</b></div>';
+  return h+'</section>'}
+function admExp(){const l=Object.keys(S.exp).map(id=>({id,...S.exp[id]})).sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,30),mo=todayS().slice(0,7);
+  let h='<section class="card"><h3>Family members ka kharcha</h3>';
+  if(!l.length)h+='<div class="empty">Abhi kisi ne kuch add nahi kiya.</div>';
+  l.forEach(e=>{h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div><b>'+esc(first(nameOf(e.uid)))+'</b> · '+esc(e.item)+'<div class="small mute">'+esc(e.date)+'</div></div><b class="num">'+rupee(e.amt)+'</b><button class="btn sm" data-act="expDel" data-a="'+esc(e.id)+'">'+(UI.cf==='x'+e.id?'Pakka hatao?':'Hatao')+'</button></div>'});
+  h+='<div class="row between"><span class="mute">Is mahine ka kul</span><b class="num">'+rupee(l.filter(e=>e.month===mo).reduce((a,e)=>a+num(e.amt),0))+'</b></div>';
+  return h+'</section>'}
+
+
+/* ---------- writes ---------- */
+async function setAtt(date,uid,k,val){const id=date+'_'+uid,c=S.att[id]||{};
+  const n={date,uid,b:c.b!==false,l:c.l!==false,s:c.s!==false,d:c.d!==false};n[k]=val;await db.doc('att/'+id).set(n)}
+function ask(k){if(UI.cf===k){UI.cf=null;return true}UI.cf=k;draw();return false}
+
+/* ---------- views ---------- */
+function dayNav(d){const t=todayS();
+  return '<div class="daynav"><button class="btn sm" data-act="day" data-a="-1" aria-label="Pichla din">‹</button>'+
+  '<div class="t">'+esc(fmtDate(d))+(d===t?' <span class="pill">Aaj</span>':'')+'</div>'+
+  '<button class="btn sm" data-act="day" data-a="1" aria-label="Agla din">›</button></div>'+
+  (d!==t?'<div><button class="btn sm ghost" data-act="goDay" data-a="'+t+'">Aaj par jao</button></div>':'')}
+
+function ensureEdit(){if(UI.edit&&UI.edit.date===UI.mdate)return;const m=menuFor(UI.mdate);
+  UI.edit={date:UI.mdate,scope:'day',sel:{b:[...m.b],l:[...m.l],s:[...m.s],d:[...m.d]},
+    opt:{b:[...m.opt.b],l:[...m.opt.l],s:[...m.opt.s],d:[...m.opt.d]},off:{...m.off},note:m.note}}
+function menuEditor(){ensureEdit();const e=UI.edit,d=e.date,dl=Object.keys(S.dishes).sort((a,b)=>S.dishes[a].name.localeCompare(S.dishes[b].name));
+  const dow=DAYN[DOW[parse(d).getDay()]];
+  let h='<section class="card"><div class="daynav"><button class="btn sm" data-act="mday" data-a="-1" aria-label="Pichla din">‹</button><div class="t">'+esc(fmtDate(d))+'</div><button class="btn sm" data-act="mday" data-a="1" aria-label="Agla din">›</button></div>'+
+  (d!==todayS()?'<div><button class="btn sm ghost" data-act="mdayToday">Aaj par jao</button></div>':'')+
+  '<div class="small mute">Family se pooch kar har meal ke 2-3 options rakho, phir final chuno. Family ko sirf final meal dikhega.</div>'+
+  '<div class="row"><label class="row"><input type="radio" name="scope" '+(e.scope==='day'?'checked':'')+' data-act="menuScope" data-a="day" style="width:20px;min-height:0"> Sirf is din</label>'+
+  '<label class="row"><input type="radio" name="scope" '+(e.scope==='week'?'checked':'')+' data-act="menuScope" data-a="week" style="width:20px;min-height:0"> Har '+esc(dow)+'</label></div>'+
+  '<label class="f">Is din ka note (jaise: Sharma ji ke yahan dawat)<input type="text" id="m-note" value="'+esc(e.note)+'" data-bind="edit.note" maxlength="80"></label>'+
+  '<div class="row"><button class="btn sm" data-act="offAll">Poore din cooking band</button><button class="btn sm" data-act="onAll">Sab meal chalu</button></div></section>';
+  if(!dl.length)h+='<div class="note">Pehle Dishes tab mein dishes jodo.</div>';
+  MEALS.forEach(m=>{const k=m[0],fp=e.opt[k].length?dl.filter(id=>e.opt[k].includes(id)||e.sel[k].includes(id)):dl;
+    h+='<section class="card"><div class="meal-h"><h3>'+m[1]+'</h3><label class="row small" style="cursor:pointer;gap:6px"><input type="checkbox" '+(e.off[k]?'checked':'')+' data-bind="edit.off.'+k+'" data-rerender="1"> Cooking band</label></div>';
+    if(e.off[k])h+='<div class="note">Family ko is meal ke liye "cooking band" dikhega.</div>';
+    else h+='<div class="small mute">Options (max 3, family se poochne ke liye)</div><div class="chips">'+
+      dl.map(id=>'<button class="chip'+(e.opt[k].includes(id)?' sel':'')+'" data-act="optTog" data-a="'+k+'" data-b="'+esc(id)+'">'+esc(S.dishes[id].name)+'</button>').join('')+'</div>'+
+      '<div class="small mute">Final (ghar mein banega)</div><div class="chips">'+
+      fp.map(id=>'<button class="chip'+(e.sel[k].includes(id)?' sel':'')+'" data-act="menuTog" data-a="'+k+'" data-b="'+esc(id)+'">'+esc(S.dishes[id].name)+'</button>').join('')+'</div>';
+    h+='</section>'});
+  h+='<div class="row"><button class="btn brand" data-act="menuSave">Save</button>'+(S.menu[d]?'<button class="btn ghost" data-act="menuReset">Hafte wale menu par wapas</button>':'')+'</div>';
+  return h}
+
+function viewToday(){const d=UI.date,t=todayS(),past=d<t,mn=menuFor(d),mem=members();
+  const mine=me.id&&S.members[me.id]&&!S.members[me.id].off,allOff=MEALS.every(m=>mn.off[m[0]]);
+  let h='<section class="card">'+dayNav(d)+
+    (isAdmin?'<div><button class="btn sm" data-act="adminMenu">Admin mein menu badlo</button></div>':'')+'</section>';
+  if(allOff)h+='<div class="note"><b>Is din ghar mein cooking band hai.</b> Bahar khana hai.'+(mn.note?' '+esc(mn.note):'')+'</div>';
+  else if(mn.note)h+='<div class="note">'+esc(mn.note)+'</div>';
+  if(!Object.keys(S.dishes).length)h+='<div class="note">'+(isAdmin?'Abhi koi dish nahi hai. Admin tab mein dishes aur stock jodo.':'Admin ne abhi menu set nahi kiya.')+'</div>';
+  if(!mine&&me.id===null)h+='<div class="note">Aapki pehchaan nahi mili, isliye aap sirf menu dekh sakte hain.</div>';
+  MEALS.forEach(m=>{const k=m[0],ids=mn[k],at=mem.filter(x=>eats(d,x.id,k)),gn=guestN(d,k),pc=plate(d,k);
+    if(mn.off[k]){h+='<section class="card"><div class="meal-h"><h3>'+m[1]+'</h3><span class="small mute">'+m[2]+'</span></div><div class="dishes mute">Cooking band · bahar khana hai</div></section>';return}
+    const eating=mine?eats(d,me.id,k):null;
+    h+='<section class="card"><div class="meal-h"><h3>'+m[1]+'</h3><span class="small mute">'+m[2]+'</span></div>'+
+    '<div class="dishes">'+(ids.length?ids.map(i=>esc((S.dishes[i]||{}).name||'?')).join(' · '):'<span class="mute">Menu set nahi hua</span>')+'</div>'+
+    '<div class="small mute num">'+(pc?rupee(pc)+' / plate · ':'')+at.length+' log'+(gn?' + '+gn+' guest':'')+(pc?' · '+rupee(pc*(at.length+gn)):'')+'</div>';
+    if(mine)h+='<div class="yn"><button class="btn'+(eating?' ok':'')+'" data-act="att" data-a="'+k+'" data-b="1"'+(past?' disabled':'')+'>✓ Khaunga</button>'+
+      '<button class="btn'+(eating===false?' no':'')+'" data-act="att" data-a="'+k+'" data-b="0"'+(past?' disabled':'')+'>✕ Cancel</button></div>';
+    h+='<div class="chips">'+mem.map(x=>{const on=eats(d,x.id,k),nm=esc(first(nameOf(x.id)));
+      return isAdmin&&!past?'<button class="chip '+(on?'on':'off')+'" data-act="admAtt" data-a="'+esc(x.id)+'" data-b="'+k+'">'+nm+'</button>':'<span class="chip '+(on?'on':'off')+'">'+nm+'</span>'}).join('')+'</div></section>'});
+  h+='<div class="card row between"><span class="mute">Is din ka kul kharcha</span><span class="big num">'+rupee(dayCost(d))+'</span></div>';
+  return h}
+
+function viewWeek(){const t=todayS();let h='<div class="sub">Agle 7 din. Kisi din par tap karke ✓ / ✕ lagao.</div>';
+  for(let i=0;i<7;i++){const d=addDays(t,i),mn=menuFor(d);
+    h+='<button class="card" style="text-align:left;cursor:pointer" data-act="goDay" data-a="'+d+'"><div class="row between"><h3>'+(i===0?'Aaj · ':i===1?'Kal · ':'')+esc(fmtDate(d))+'</h3><span class="small mute num">'+rupee(dayCost(d))+'</span></div>'+
+    (mn.note?'<div class="small mute">'+esc(mn.note)+'</div>':'')+'<div class="wk">'+
+    MEALS.map(m=>{const k=m[0],c=me.id&&S.members[me.id]&&!eats(d,me.id,k);
+      return '<b>'+m[3]+'</b><span>'+(mn.off[k]?'<span class="bad">Cooking band</span>':(mn[k].length?mn[k].map(x=>esc((S.dishes[x]||{}).name||'?')).join(', '):'—')+(c?' <span class="bad">(cancel)</span>':''))+'</span>'}).join('')+'</div></button>'}
+  return h}
+
+function viewGuest(){const g=UI.guest,minD=isAdmin?todayS():addDays(todayS(),1);
+  let h='<section class="card"><h2>Guest add karo</h2><div class="small mute">Guest ka khana ek din pehle tak add karna hota hai'+(isAdmin?' (admin kisi bhi din add kar sakta hai)':'')+'.</div>'+
+  '<div class="fields"><label class="f">Tareekh<input type="date" id="g-date" min="'+minD+'" value="'+esc(g.date)+'" data-bind="guest.date"></label>'+
+  '<label class="f">Kitne guest<input type="number" inputmode="numeric" min="1" max="30" id="g-n" value="'+esc(g.n)+'" data-bind="guest.n"></label></div>'+
+  '<label class="f">Kaun aa raha hai (optional)<input type="text" id="g-name" value="'+esc(g.name)+'" data-bind="guest.name" maxlength="60"></label>'+
+  '<div class="chips">'+MEALS.map(m=>'<label class="chip row" style="cursor:pointer;gap:6px"><input type="checkbox" '+(g[m[0]]?'checked':'')+' data-bind="guest.'+m[0]+'"> '+m[3]+'</label>').join('')+'</div>'+
+  '<button class="btn brand" data-act="guestAdd"'+(canWrite&&me.id?'':' disabled')+'>Guest add karo</button></section>';
+  const list=Object.keys(S.guests).map(id=>({id,...S.guests[id]})).filter(x=>x.date>=addDays(todayS(),-7)).sort((a,b)=>a.date.localeCompare(b.date));
+  h+='<section class="card"><h3>Guest list</h3>';
+  if(!list.length)h+='<div class="empty">Abhi koi guest add nahi hai.</div>';
+  list.forEach(x=>{const ms=MEALS.filter(m=>x[m[0]]),est=ms.reduce((a,m)=>a+plate(x.date,m[0]),0)*num(x.n);
+    h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div class="grow"><b>'+esc(fmtDate(x.date))+'</b> · '+esc(x.n)+' guest'+(x.name?' ('+esc(x.name)+')':'')+
+    '<div class="small mute">'+ms.map(m=>m[3]).join(', ')+' · add kiya: '+esc(first(nameOf(x.by)))+(est?' · '+rupee(est):'')+'</div></div>'+
+    ((isAdmin||x.by===me.id)&&x.date>=todayS()?'<button class="btn sm" data-act="guestDel" data-a="'+esc(x.id)+'">'+(UI.cf==='g'+x.id?'Pakka hatao?':'Hatao')+'</button>':'')+'</div>'});
+  return h+'</section>'}
+
+function viewBill(){const mo=UI.month,B=monthBill(mo),P=paidBy(mo),mem=members();
+  const remain=Math.max(0,B.tot.till-P.all),pct=B.tot.till?Math.min(100,P.all/B.tot.till*100):0;
+  const my=B.per[me.id]||{own:0,guest:0,meals:0},myShare=my.own+my.guest,myPaid=P.p[me.id]||0,myRem=Math.max(0,myShare-myPaid);
+  let h=pendCard()+'<section class="card"><div class="meal-h"><h2>'+fmtMonth(mo)+' ka bill</h2><span class="pill">Is mahine</span></div>'+
+  '<div class="row between"><div><div class="small mute">Ab tak ka bill</div><div class="big num">'+rupee(B.tot.till)+'</div></div>'+
+  '<div style="text-align:right"><div class="small mute">Baaki</div><div class="big num '+(remain>0?'bad':'good')+'">'+rupee(remain)+'</div></div></div>'+
+  '<div class="bar"><i style="width:'+pct+'%"></i></div><div class="small mute num">Jama '+rupee(P.all)+(B.tot.est?' · baaki mahine ka andaaza '+rupee(B.tot.est):'')+'</div></section>';
+  if(me.id&&S.members[me.id]){
+    h+='<section class="card"><h3>Mera hissa</h3><div class="row between"><div class="small mute num">'+my.meals+' meal · khana '+rupee(my.own)+' · guest '+rupee(my.guest)+'</div><b class="num">'+rupee(myShare)+'</b></div>'+
+    '<div class="small mute num">Maine diya '+rupee(myPaid)+(myRem>0?' · baaki '+rupee(myRem):' · poora ho gaya')+'</div>'+
+    '<div class="row">'+(myRem>0?'<button class="btn brand" data-act="payShare" data-a="'+Math.ceil(myRem)+'">Mera hissa bharo '+rupee(myRem)+'</button>':'')+
+    (remain>0?'<button class="btn" data-act="payFull" data-a="'+Math.ceil(remain)+'">Poora bill bharo '+rupee(remain)+'</button>':'')+'</div>'+
+    '<div class="row"><div class="grow"><input type="number" inputmode="decimal" min="1" id="payamt" placeholder="Kuch amount (₹)" value="'+esc(UI.payAmt)+'" data-bind="payAmt"></div><button class="btn" data-act="payPart">Contribute</button></div>'+
+    '<div class="small mute">Yeh sirf record hai. Paisa app se nahi katta; ghar mein aapas mein do.</div></section>'}
+  if(me.id&&S.members[me.id])h+=expForm(mo);
+  h+='<section class="card"><h3>Sabka hisaab</h3><div class="table"><table><thead><tr><th>Naam</th><th class="r">Hissa</th><th class="r">Diya</th><th class="r">Hisaab</th></tr></thead><tbody>';
+  Object.keys(B.per).forEach(id=>{const r=B.per[id],sh=r.own+r.guest,pd=P.p[id]||0,bal=pd-sh;
+    h+='<tr><td>'+esc(id==='?'?'Unknown':first(nameOf(id)))+'</td><td class="r num">'+rupee(sh)+'</td><td class="r num">'+rupee(pd)+'</td><td class="r num '+(bal<-0.5?'bad':'good')+'">'+(bal<-0.5?'baaki '+rupee(-bal):bal>0.5?'extra '+rupee(bal):'barabar')+'</td></tr>'});
+  h+='</tbody></table></div></section>';
+  const pl=Object.keys(S.pay).map(id=>({id,...S.pay[id]})).filter(x=>x.month===mo).sort((a,b)=>b.ts-a.ts);
+  h+='<section class="card"><h3>Jama kiye gaye paise</h3>';
+  if(!pl.length)h+='<div class="empty">Is mahine abhi koi contribution nahi.</div>';
+  pl.forEach(x=>{h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div><b class="num">'+rupee(x.amt)+'</b> · '+esc(first(nameOf(x.uid)))+
+    '<div class="small mute">'+esc(x.date||'')+' · '+(x.kind==='full'?'poora bill':x.kind==='share'?'apna hissa':'contribution')+'</div></div>'+
+    ((isAdmin||x.uid===me.id)?'<button class="btn sm" data-act="payDel" data-a="'+esc(x.id)+'">'+(UI.cf==='p'+x.id?'Pakka hatao?':'Hatao')+'</button>':'')+'</div>'});
+  h+='</section>';
+  const bl=Object.keys(S.bills).map(id=>({id,...S.bills[id]})).filter(x=>(x.date||'').slice(0,7)===mo).sort((a,b)=>b.date.localeCompare(a.date));
+  h+='<section class="card"><h3>Sunday ka bill</h3>';
+  if(!bl.length)h+='<div class="empty">Is mahine abhi koi bill submit nahi hua.</div>';
+  bl.forEach(x=>{const it=purchOn(x.date);
+    h+='<div style="border-top:1px solid var(--line);padding-top:8px"><div class="row between"><b>'+esc(fmtDate(x.date))+(x.note?' · '+esc(x.note):'')+'</b><b class="num">'+rupee(x.amt)+'</b></div>'+
+    (it.length?'<div class="small mute">'+it.map(p=>{const s=S.stock[p.item]||{name:'?',unit:''};return esc(s.name)+' '+fmtQty(num(p.qty),s.unit)+' ('+rupee(p.amt)+')'}).join(', ')+'</div>':'')+'</div>'});
+  h+='</section>';
+  return h+'<div class="card row between"><span class="mute">Is mahine ki grocery khareed</span><b class="num">'+rupee(groceryMonth(mo))+'</b></div>'}
+function purchOn(date){return Object.keys(S.purch).map(id=>({id,...S.purch[id]})).filter(p=>p.date===date).sort((a,b)=>(a.ts||0)-(b.ts||0))}
+function groceryMonth(mo){const dates=new Set();Object.values(S.purch).forEach(p=>{if((p.date||'').slice(0,7)===mo)dates.add(p.date)});
+  Object.values(S.bills).forEach(b=>{if((b.date||'').slice(0,7)===mo)dates.add(b.date)});
+  let t=0;dates.forEach(d=>{t+=S.bills[d]?num(S.bills[d].amt):purchOn(d).reduce((a,p)=>a+num(p.amt),0)});return t}
+
+function viewAdmin(){const t=todayS(),B=monthBill(t.slice(0,7)),st=stockNow(),nd=need7(addDays(t,1));let cnt=0;
+  Object.keys(S.stock).forEach(id=>{if(Math.max(0,(nd[id]||0)-st[id])>0.0005)cnt++});
+  const stat=(a,b)=>'<div><div class="small mute">'+a+'</div><div class="big num">'+b+'</div></div>';
+  let h='<section class="card"><h2>Admin Dashboard</h2><div class="fields">'+stat('Aaj ka kharcha',rupee(dayCost(t)))+stat('Is mahine ka bill',rupee(B.tot.till))+stat('Sunday list',cnt+' saman')+stat('Pichla baaki',rupee(pendMonths().reduce((a,p)=>a+p.rows.reduce((b,r)=>b+r.rem,0),0)))+'</div></section>';
+  const tabs=[['menu','Menu'],['shop','Sunday list'],['bill','Bill'],['dish','Dishes'],['stock','Stock'],['people','Log']];
+  h+='<div class="tabs2">'+tabs.map(x=>'<button class="chip'+(UI.adm===x[0]?' sel':'')+'" data-act="admTab" data-a="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>';
+  return h+({menu:menuEditor,shop:admShop,bill:admBill,dish:admDish,stock:admStock,people:admPeople2}[UI.adm]||menuEditor)()}
+function admBill(){const b=UI.bill,ex=S.bills[b.date];
+  if(b.for!==b.date){b.for=b.date;b.note=ex?ex.note||'':'';b.amt=ex?String(ex.amt):''}
+  const items=purchOn(b.date),sum=items.reduce((a,p)=>a+num(p.amt),0);
+  let h='<section class="card"><h2>Khareedari bill submit</h2><div class="small mute">Saman ki entry Sunday list se hoti hai. Yahan us din ka poora bill submit karo; family ko Bill tab mein dikhega.</div>'+
+  '<label class="f">Bill ki tareekh<input type="date" id="b-date" max="'+todayS()+'" value="'+esc(b.date)+'" data-bind="bill.date" data-rerender="1"></label>';
+  if(!items.length)h+='<div class="empty">Is din ki koi saman entry nahi. Pehle Sunday list mein "Kharida" dabao.</div>';
+  items.forEach(p=>{const s=S.stock[p.item]||{name:'?',unit:''};
+    h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:6px"><span>'+esc(s.name)+' · '+fmtQty(num(p.qty),s.unit)+'</span><b class="num">'+rupee(p.amt)+'</b></div>'});
+  h+='<div class="row between"><span class="mute">Entry ka jod</span><b class="num">'+rupee(sum)+'</b></div>'+
+  '<div class="fields"><label class="f">Bill ka kul (₹)<input type="number" inputmode="decimal" id="b-amt" placeholder="'+Math.round(sum)+'" value="'+esc(b.amt)+'" data-bind="bill.amt"></label>'+
+  '<label class="f">Dukaan ya note<input type="text" id="b-note" value="'+esc(b.note)+'" data-bind="bill.note" maxlength="80"></label></div>'+
+  '<button class="btn brand" data-act="billSave">'+(ex?'Bill update karo':'Bill submit karo')+'</button></section>';
+  const bl=Object.keys(S.bills).map(id=>({id,...S.bills[id]})).sort((a,c)=>c.date.localeCompare(a.date)).slice(0,8);
+  h+='<section class="card"><h3>Submit kiye hue bill</h3>';
+  if(!bl.length)h+='<div class="empty">Abhi koi bill submit nahi hua.</div>';
+  bl.forEach(x=>{h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div>'+esc(fmtDate(x.date))+(x.note?' · '+esc(x.note):'')+'<div class="small mute">'+esc(x.items||0)+' entry</div></div><b class="num">'+rupee(x.amt)+'</b>'+
+    '<button class="btn sm" data-act="billDel" data-a="'+esc(x.id)+'">'+(UI.cf==='b'+x.id?'Pakka hatao?':'Hatao')+'</button></div>'});
+  return h+'</section>'+admExp()}
+
+function admShop(){const st=stockNow(),need=need7(UI.shopStart),ids=Object.keys(S.stock).sort((a,b)=>S.stock[a].name.localeCompare(S.stock[b].name));
+  let h='<section class="card"><h2>Sunday ki khareedari</h2><div class="small mute">Agle 7 din ka menu, log aur guest ke hisaab se kitna saman chahiye, aur stock mein kitna hai.</div>'+
+  '<label class="f">Kis din se 7 din<input type="date" id="shopstart" value="'+UI.shopStart+'" data-bind="shopStart" data-rerender="1"></label>';
+  let tot=0,rows='';
+  ids.forEach(id=>{const s=S.stock[id],nd=need[id]||0,have=st[id],buy=Math.max(0,nd-have);if(buy<=0.0005)return;
+    const est=buy*num(s.price);tot+=est;
+    let b=UI.buy[id];if(!b||Math.abs(b.base-buy)>0.0005)b=UI.buy[id]={q:String(+buy.toFixed(3)),a:String(Math.round(est)),base:buy};
+    rows+='<div style="border-top:1px solid var(--line);padding-top:8px;display:flex;flex-direction:column;gap:6px"><div class="row between"><b>'+esc(s.name)+'</b><span class="small mute num">chahiye '+fmtQty(nd,s.unit)+' · hai '+fmtQty(have,s.unit)+'</span></div>'+
+    '<div class="row"><label class="f grow">Kitna lena ('+esc(s.unit)+')<input type="number" inputmode="decimal" step="any" id="bq-'+esc(id)+'" value="'+esc(b.q)+'" data-bind="buy.'+esc(id)+'.q"></label>'+
+    '<label class="f grow">Kharcha (₹)<input type="number" inputmode="decimal" id="ba-'+esc(id)+'" value="'+esc(b.a)+'" data-bind="buy.'+esc(id)+'.a"></label>'+
+    '<button class="btn brand" data-act="shopAdd" data-a="'+esc(id)+'">Kharida</button></div></div>'});
+  h+=rows||'<div class="empty">Agle 7 din ka saara saman stock mein hai.</div>';
+  h+=(rows?'<div class="row between"><span class="mute">Andaaza kul</span><b class="num">'+rupee(tot)+'</b></div>':'')+'</section>';
+  h+='<section class="card"><h3>Kuch aur kharida</h3><div class="fields"><label class="f">Saman<select id="mb-item" data-bind="mbuy.item">'+
+    '<option value="">Chuno</option>'+ids.map(i=>'<option value="'+esc(i)+'"'+(UI.mbuy.item===i?' selected':'')+'>'+esc(S.stock[i].name)+' ('+esc(S.stock[i].unit)+')</option>').join('')+'</select></label>'+
+    '<label class="f">Matra<input type="number" inputmode="decimal" step="any" id="mb-q" value="'+esc(UI.mbuy.q)+'" data-bind="mbuy.q"></label>'+
+    '<label class="f">Kharcha (₹)<input type="number" inputmode="decimal" id="mb-a" value="'+esc(UI.mbuy.a)+'" data-bind="mbuy.a"></label></div>'+
+    '<button class="btn" data-act="buyManual">Add karo</button></section>';
+  const pl=Object.keys(S.purch).map(id=>({id,...S.purch[id]})).sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,10);
+  h+='<section class="card"><h3>Pichli khareedari</h3>';
+  if(!pl.length)h+='<div class="empty">Abhi koi entry nahi.</div>';
+  pl.forEach(p=>{const s=S.stock[p.item]||{name:'?',unit:''};
+    h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div>'+esc(s.name)+' · '+fmtQty(num(p.qty),s.unit)+' · <b class="num">'+rupee(p.amt)+'</b><div class="small mute">'+esc(p.date)+'</div></div>'+
+    '<button class="btn sm" data-act="purDel" data-a="'+esc(p.id)+'">'+(UI.cf==='u'+p.id?'Pakka hatao?':'Hatao')+'</button></div>'});
+  return h+'</section>'}
+
+function admStock(){const st=stockNow(),ids=Object.keys(S.stock).sort((a,b)=>S.stock[a].name.localeCompare(S.stock[b].name));let h='';
+  const e=UI.sedit;
+  if(e){h+='<section class="card"><h3>'+(e.id?'Stock badlo':'Naya saman')+'</h3><div class="fields">'+
+    '<label class="f">Naam<input type="text" id="s-name" value="'+esc(e.name)+'" data-bind="sedit.name" maxlength="40"></label>'+
+    '<label class="f">Unit<select id="s-unit" data-bind="sedit.unit">'+['kg','L','pcs'].map(u=>'<option'+(e.unit===u?' selected':'')+'>'+u+'</option>').join('')+'</select></label>'+
+    '<label class="f">Bhaav (₹ per unit)<input type="number" inputmode="decimal" id="s-price" value="'+esc(e.price)+'" data-bind="sedit.price"></label>'+
+    '<label class="f">Abhi kitna hai<input type="number" inputmode="decimal" step="any" id="s-qty" value="'+esc(e.qty)+'" data-bind="sedit.qty"></label></div>'+
+    '<div class="row"><button class="btn brand" data-act="stockSave">Save</button><button class="btn" data-act="stockCancel">Band karo</button>'+
+    (e.id?'<button class="btn ghost" data-act="stockDel">'+(UI.cf==='sd'?'Pakka hatao?':'Hatao')+'</button>':'')+'</div></section>'}
+  else h+='<div><button class="btn brand" data-act="stockEdit" data-a="new">+ Naya saman</button></div>';
+  h+='<section class="card"><h3>Stock aur bhaav</h3>';
+  if(!ids.length)h+='<div class="empty">Abhi koi saman nahi. Upar se jodo.</div>';
+  ids.forEach(id=>{const s=S.stock[id],q=st[id];
+    h+='<button class="row between" style="border:0;border-top:1px solid var(--line);background:none;padding:9px 0;text-align:left;cursor:pointer;width:100%" data-act="stockEdit" data-a="'+esc(id)+'"><span><b>'+esc(s.name)+'</b><div class="small mute num">'+rupee(s.price)+' / '+esc(s.unit)+'</div></span><span class="num '+(q<0?'bad':'')+'">'+fmtQty(q,s.unit)+'</span></button>'});
+  return h+'</section>'}
+
+function admDish(){const ids=Object.keys(S.dishes).sort((a,b)=>S.dishes[a].name.localeCompare(S.dishes[b].name)),sk=Object.keys(S.stock).sort((a,b)=>S.stock[a].name.localeCompare(S.stock[b].name));let h='';
+  const e=UI.dedit;
+  if(e){h+='<section class="card"><h3>'+(e.id?'Dish badlo':'Nayi dish')+'</h3>'+
+    '<div class="fields"><label class="f">Dish ka naam<input type="text" id="d-name" value="'+esc(e.name)+'" data-bind="dedit.name" maxlength="40"></label>'+
+    '<label class="f">Gas aur extra (₹ per plate)<input type="number" inputmode="decimal" id="d-extra" value="'+esc(e.extra)+'" data-bind="dedit.extra"></label></div>'+
+    '<div class="small mute">Ek plate mein kitna saman lagta hai (g / ml / pcs):</div>';
+    e.ing.forEach((r,i)=>{const s=S.stock[r.s],u=s?small(s.unit):'';
+      h+='<div class="row"><div class="grow"><select id="di-s'+i+'" data-bind="dedit.ing.'+i+'.s" data-rerender="1"><option value="">Saman chuno</option>'+sk.map(k=>'<option value="'+esc(k)+'"'+(r.s===k?' selected':'')+'>'+esc(S.stock[k].name)+'</option>').join('')+'</select></div>'+
+      '<div style="width:110px"><input type="number" inputmode="decimal" step="any" id="di-q'+i+'" value="'+esc(r.q)+'" data-bind="dedit.ing.'+i+'.q" placeholder="'+esc(u)+'"></div><span class="small mute" style="width:30px">'+esc(u)+'</span>'+
+      '<button class="btn sm" data-act="ingDel" data-a="'+i+'" aria-label="Hatao">✕</button></div>'});
+    h+='<div><button class="btn sm" data-act="ingAdd">+ Saman jodo</button></div>'+
+    '<div class="row between"><span class="mute">Ek plate ka kharcha</span><b class="num">'+rupee(dishFormCost(e))+'</b></div>'+
+    '<div class="row"><button class="btn brand" data-act="dishSave">Save</button><button class="btn" data-act="dishCancel">Band karo</button>'+
+    (e.id?'<button class="btn ghost" data-act="dishDel">'+(UI.cf==='dd'?'Pakka hatao?':'Hatao')+'</button>':'')+'</div></section>'}
+  else h+='<div><button class="btn brand" data-act="dishEdit" data-a="new">+ Nayi dish</button></div>';
+  h+='<section class="card"><h3>Dishes</h3>';
+  if(!ids.length)h+='<div class="empty">Abhi koi dish nahi. Upar se jodo.</div>';
+  ids.forEach(id=>{h+='<button class="row between" style="border:0;border-top:1px solid var(--line);background:none;padding:9px 0;text-align:left;cursor:pointer;width:100%" data-act="dishEdit" data-a="'+esc(id)+'"><b>'+esc(S.dishes[id].name)+'</b><span class="num mute">'+rupee(dishCost(id))+' / plate</span></button>'});
+  return h+'</section>'}
+function dishFormCost(e){let c=num(e.extra);e.ing.forEach(r=>{const s=S.stock[r.s];if(s)c+=toBase(num(r.q),s.unit)*num(s.price)});return c}
+
+function admPeople(){const all=Object.keys(S.members).map(id=>({id,...S.members[id]})).sort((a,b)=>nameOf(a.id).localeCompare(nameOf(b.id)));
+  let h='<section class="card"><h2>Family members</h2><div class="small mute">Jo bhi yeh page kholta hai, apne aap member ban jata hai. Bina phone wale member ko neeche se jodo; unka ✓ / ✕ aap Aaj tab mein lagayenge.</div>';
+  all.forEach(m=>{h+='<div class="row between" style="border-top:1px solid var(--line);padding-top:8px"><div>'+esc(nameOf(m.id))+(m.manual?' <span class="small mute">(manual)</span>':'')+(m.off?' <span class="small bad">band</span>':'')+'</div>'+
+    '<button class="btn sm" data-act="memberOff" data-a="'+esc(m.id)+'">'+(m.off?'Wapas jodo':'Hatao')+'</button></div>'});
+  h+='<div class="row"><div class="grow"><input type="text" id="newmem" placeholder="Naam (jaise Dadi)" value="'+esc(UI.newMember)+'" data-bind="newMember" maxlength="40"></div><button class="btn brand" data-act="memberAdd">Jodo</button></div></section>';
+  return h}
+
+function loginView(){const nm=me.name?' · '+esc(first(me.name)):'';
+  return '<section class="card"><h2>Login chuno'+nm+'</h2><div class="small mute">Aap kaise khulna chahte hain?</div>'+
+  '<button class="btn brand" data-act="login" data-a="family">Family Member Login</button>'+
+  '<button class="btn" data-act="login" data-a="admin">Admin Login</button>'+
+  (adminOK?'':'<div class="small mute">Admin login sirf unke liye hai jinhe app ka Editor ya Owner access mila hai.</div>')+'</section>'}
+const ADMIN_PHONE='7750013890',FBC=window.FIREBASE_CONFIG||{},FB_OK=!/PASTE/.test(FBC.apiKey||'PASTE');
+const cleanP=s=>String(s||'').replace(/\D/g,'').slice(-10);
+const em=(p,v)=>p+(v>1?'.v'+v:'')+'@panda.app';
+let auth=null,subs=[];
+async function loginWith(raw,pw){const p=cleanP(raw);pw=String(pw);let v=1;
+  if(p!==ADMIN_PHONE){const sn=await db.doc('phones/'+p).get();if(!sn.exists)return 'Ye number register nahi hai. Admin se jodne ko kaho.';v=sn.data().v||1}
+  try{await auth.signInWithEmailAndPassword(em(p,v),pw)}catch(e){return 'Phone ya password galat hai'}return ''}
+async function secUser(email,pw){const ap=firebase.apps.find(a=>a.name==='sec')||firebase.initializeApp(FBC,'sec');
+  const a2=ap.auth(),c=await a2.createUserWithEmailAndPassword(email,pw);await a2.signOut();return c.user.uid}
+async function setCred(mid,ph,pw){const ps=await db.doc('phones/'+ph).get(),old=ps.exists?ps.data():{},v=(old.v||0)+1;
+  const uid=await secUser(em(ph,v),pw),b=db.batch();
+  b.set(db.doc('uids/'+uid),{mid});b.set(db.doc('phones/'+ph),{v,uid,mid});if(old.uid)b.delete(db.doc('uids/'+old.uid));await b.commit()}
+function stopSubs(){subs.forEach(u=>{try{u()}catch(e){}});subs=[];['dishes','stock','menu','members','att','guests','purch','pay','bills','exp','snap'].forEach(k=>{S[k]={}});S.ready={}}
+function startSubs(){const from=addDays(todayS(),-400);
+  subs=[sub(db.collection('dishes'),'dishes'),sub(db.collection('stock'),'stock'),sub(db.collection('menu'),'menu'),sub(db.collection('members'),'members'),
+    sub(db.collection('purch'),'purch'),sub(db.collection('bills'),'bills'),sub(db.collection('pay'),'pay'),sub(db.collection('exp'),'exp'),sub(db.collection('snap'),'snap'),
+    sub(db.collection('att').where('date','>=',from),'att'),sub(db.collection('guests').where('date','>=',from),'guests')]}
+function loginForm(){const l=UI.lg;return '<section class="card"><h2>Login</h2><div class="small mute">Apna phone number aur password daalo. Password admin se milega. Ek baar login ke baad dobara nahi poochega.</div>'+
+  '<label class="f">Phone number<input type="tel" inputmode="numeric" id="lg-p" autocomplete="username" value="'+esc(l.p)+'" data-bind="lg.p" maxlength="14"></label>'+
+  '<label class="f">Password<input type="password" id="lg-w" autocomplete="current-password" value="'+esc(l.w)+'" data-bind="lg.w" maxlength="30"></label>'+
+  (l.err?'<div class="note bad">'+esc(l.err)+'</div>':'')+'<button class="btn brand" data-act="doLogin">Login</button></section>'}
+function admPeople2(){const all=Object.keys(S.members).map(id=>({id,...S.members[id]})).sort((a,b)=>nameOf(a.id).localeCompare(nameOf(b.id))),n=UI.nm;
+  let h='<section class="card"><h2>Family members</h2><div class="small mute">Naam, phone number aur password daal ke jodo. Member isi number aur password se login karega. Aap khud bhi khana khate ho to neeche "Mujhe bhi member banao" dabao.</div>'+
+  '<div class="fields"><label class="f">Naam<input type="text" id="nm-n" value="'+esc(n.n)+'" data-bind="nm.n" maxlength="40"></label>'+
+  '<label class="f">Phone (10 digit)<input type="tel" inputmode="numeric" id="nm-p" value="'+esc(n.p)+'" data-bind="nm.p" maxlength="14"></label>'+
+  '<label class="f">Password<input type="text" id="nm-w" value="'+esc(n.w)+'" data-bind="nm.w" maxlength="30"></label></div><button class="btn brand" data-act="mAdd">Member jodo</button>'+((isAdmin&&me.id&&!S.members[me.id])?'<button class="btn" data-act="selfMember">Mujhe bhi member banao</button>':'')+'</section>';
+  h+='<section class="card"><h3>Sab members</h3>';
+  if(!all.length)h+='<div class="empty">Abhi koi member nahi.</div>';
+  all.forEach(m=>{h+='<div style="border-top:1px solid var(--line);padding-top:8px;display:flex;flex-direction:column;gap:8px"><div class="row between"><div><b>'+esc(nameOf(m.id))+'</b>'+(m.off?' <span class="small bad">band</span>':'')+'<div class="small mute num">'+esc(m.phone||'phone nahi')+(m.ph?'':' · password set nahi')+'</div></div>'+
+    '<div class="row"><button class="btn sm" data-act="pwOpen" data-a="'+esc(m.id)+'">Password</button><button class="btn sm" data-act="memberOff" data-a="'+esc(m.id)+'">'+(m.off?'Wapas jodo':'Hatao')+'</button></div></div>'+
+    (UI.pwId===m.id?'<div class="row"><div class="grow"><input type="tel" inputmode="numeric" id="pw-p" placeholder="Phone" value="'+esc(UI.pwP)+'" data-bind="pwP" maxlength="14"></div><div class="grow"><input type="text" id="pw-v" placeholder="Naya password" value="'+esc(UI.pwVal)+'" data-bind="pwVal" maxlength="30"></div><button class="btn brand sm" data-act="pwSave">Save</button></div>':'')+'</div>'});
+  return h+'</section>'}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('#lg-w'))ACT.doLogin()});
+/* ---------- render ---------- */
+function draw(){const y=window.scrollY;
+  if(!db){app.innerHTML='<div class="note">Firebase config abhi nahi bhara hai. index.html ke upar FIREBASE_CONFIG mein apni details paste karo.</div>';return}
+  const t=todayS(),isNew=!S.ready.dishes;
+  hd.innerHTML='<div><h1>PANDA FAMILY FOOD ROUTINE</h1><div class="sub">'+esc(fmtDate(t))+(me.name?' · '+esc(first(me.name)):'')+'</div></div>'+(role?'<div class="row" style="gap:8px;flex-wrap:nowrap"><span class="pill">'+(isAdmin?'Admin':'Family')+'</span><button class="btn sm ghost" data-act="logout">Logout</button></div>':'');
+  const tabs=[['today','Aaj'],['week','Hafta'],['guest','Guest'],['bill','Bill']];if(isAdmin)tabs.push(['admin','Admin']);
+  nav.innerHTML=tabs.map(x=>'<button class="tab'+(UI.tab===x[0]?' on':'')+'" data-act="tab" data-a="'+x[0]+'">'+x[1]+'</button>').join('');
+  if(authBusy){nav.innerHTML='';app.innerHTML='<div class="empty">Load ho raha hai...</div>';return}
+  if(!role){nav.innerHTML='';app.innerHTML=loginForm();return}
+  if(isNew){app.innerHTML='<div class="empty">Load ho raha hai...</div>';return}
+  app.innerHTML=({today:viewToday,week:viewWeek,guest:viewGuest,bill:viewBill,admin:viewAdmin}[UI.tab]||viewToday)();
+  window.scrollTo(0,y)}
+
+let tmr=0,pending=false;
+function schedule(){clearTimeout(tmr);tmr=setTimeout(refresh,40)}
+async function refresh(){const ids=new Set();Object.keys(S.members).forEach(i=>{if(!S.members[i].manual)ids.add(i)});
+  Object.values(S.guests).forEach(g=>g.by&&ids.add(g.by));Object.values(S.pay).forEach(p=>p.uid&&ids.add(p.uid));if(me.id)ids.add(me.id);
+  if(user&&ids.size){try{profiles=await user.profiles([...ids])}catch(e){}}
+  maybeDraw()}
+function maybeDraw(){autoSnap();const a=document.activeElement;if(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&app.contains(a)){pending=true;return}pending=false;draw()}
+document.addEventListener('focusout',()=>{if(!pending)return;setTimeout(()=>{const a=document.activeElement;
+  if(pending&&!(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&app.contains(a))){pending=false;draw()}},60)});
+
+/* ---------- events ---------- */
+function setPath(o,p,v){const k=p.split('.');let c=o;for(let i=0;i<k.length-1;i++){c=c[k[i]];if(c==null)return}c[k[k.length-1]]=v}
+function onBind(e){const t=e.target.closest('[data-bind]');if(!t)return;
+  const v=t.type==='checkbox'?t.checked:t.value;setPath(UI,t.dataset.bind,v);
+  if(e.type==='change'&&t.dataset.rerender)draw()}
+document.addEventListener('input',onBind);document.addEventListener('change',onBind);
+
+const ACT={
+  tab(a){UI.tab=a;UI.edit=null;draw()},
+  day(a){UI.date=addDays(UI.date,+a);draw()},
+  goDay(a){UI.date=a;UI.tab='today';draw()},
+  async att(k,v){if(!me.id)return;await w(()=>setAtt(UI.date,me.id,k,v==='1'))},
+  async admAtt(uid,k){await w(()=>setAtt(UI.date,uid,k,!eats(UI.date,uid,k)))},
+  adminMenu(){UI.mdate=UI.date;UI.edit=null;UI.tab='admin';UI.adm='menu';draw()},
+  mday(a){UI.mdate=addDays(UI.mdate,+a);UI.edit=null;draw()},
+  mdayToday(){UI.mdate=todayS();UI.edit=null;draw()},
+  menuScope(a){UI.edit.scope=a},
+  menuTog(k,id){const s=UI.edit.sel[k],i=s.indexOf(id);if(i<0)s.push(id);else s.splice(i,1);draw()},
+  optTog(k,id){const s=UI.edit.opt[k],i=s.indexOf(id);if(i<0){if(s.length>=3){toast('Zyada se zyada 3 options rakho');return}s.push(id)}else s.splice(i,1);draw()},
+  offAll(){MEALS.forEach(m=>{UI.edit.off[m[0]]=true});draw()},
+  onAll(){MEALS.forEach(m=>{UI.edit.off[m[0]]=false});draw()},
+  async menuSave(){const e=UI.edit,data={b:e.sel.b,l:e.sel.l,s:e.sel.s,d:e.sel.d,opt:e.opt,off:e.off,note:String(e.note||'').trim()};
+    await w(async()=>{
+      if(e.scope==='day')await db.doc('menu/'+e.date).set(data);
+      else{const tpl={...(S.menu.template||{})};tpl[DOW[parse(e.date).getDay()]]=data;await db.doc('menu/template').set(tpl);
+        if(S.menu[e.date])await db.doc('menu/'+e.date).delete()}
+      UI.edit=null;toast('Menu save ho gaya');draw()})},
+  async menuReset(){await w(async()=>{await db.doc('menu/'+UI.edit.date).delete();UI.edit=null;toast('Hafte wala menu wapas aa gaya');draw()})},
+  async billSave(){const b=UI.bill,items=purchOn(b.date),sum=items.reduce((a,p)=>a+num(p.amt),0),amt=String(b.amt).trim()===''?sum:num(b.amt);
+    if(!b.date){toast('Tareekh chuno');return}if(amt<=0){toast('Bill ka amount likho');return}
+    await w(async()=>{await db.doc('bills/'+b.date).set({date:b.date,note:String(b.note||'').trim(),amt:Math.round(amt*100)/100,items:items.length,ts:Date.now()});toast('Bill submit ho gaya');draw()})},
+  async billDel(id){if(!ask('b'+id))return;await w(()=>db.doc('bills/'+id).delete())},
+  async guestAdd(){const g=UI.guest,n=Math.round(num(g.n)),minD=isAdmin?todayS():addDays(todayS(),1);
+    if(!g.date||g.date<minD){toast(isAdmin?'Aaj ya aage ki tareekh chuno':'Guest ka khana ek din pehle add karna hota hai');return}
+    if(n<1||n>30){toast('Guest ki sankhya 1 se 30 ke beech rakho');return}
+    if(!MEALS.some(m=>g[m[0]])){toast('Kam se kam ek meal chuno');return}
+    await w(async()=>{await db.collection('guests').add({date:g.date,n,name:String(g.name||'').trim(),by:me.id,b:!!g.b,l:!!g.l,s:!!g.s,d:!!g.d,ts:Date.now()});
+      UI.guest.name='';UI.guest.n=1;toast('Guest add ho gaye');draw()})},
+  async guestDel(id){if(!ask('g'+id))return;await w(()=>db.doc('guests/'+id).delete())},
+  month(a){const d=parse(UI.month+'-01');d.setMonth(d.getMonth()+(+a));UI.month=iso(d).slice(0,7);draw()},
+  login(a){if(a==='admin'&&!adminOK){toast('Aapke paas admin access nahi hai');return}
+    role=a;isAdmin=adminOK&&a==='admin';UI.tab='today';UI.edit=null;try{localStorage.setItem('pf_role',a)}catch(e){}draw()},
+  logout(){role=null;isAdmin=false;UI.tab='today';UI.edit=null;try{localStorage.removeItem('pf_role')}catch(e){}draw()},
+  async payMonth(a,b){await pay(num(b),'share',a)},
+  async expAdd(){const x=UI.xp,a=num(x.amt),it=String(x.item).trim();if(!me.id){toast('Aapki pehchaan nahi mili');return}
+    if(!it){toast('Kya kharida likho');return}if(a<=0){toast('Amount likho');return}
+    await w(async()=>{await db.collection('exp').add({uid:me.id,item:it,amt:Math.round(a*100)/100,date:todayS(),month:todayS().slice(0,7),ts:Date.now()});UI.xp={item:'',amt:''};toast('Add ho gaya');draw()})},
+  async expDel(id){if(!ask('x'+id))return;await w(()=>db.doc('exp/'+id).delete())},
+  async payShare(a){await pay(num(a),'share')},
+  async payFull(a){await pay(num(a),'full')},
+  async payPart(){const a=num(UI.payAmt);if(a<=0){toast('Amount likho');return}await pay(a,'part');UI.payAmt='';draw()},
+  async payDel(id){if(!ask('p'+id))return;await w(()=>db.doc('pay/'+id).delete())},
+  admTab(a){UI.adm=a;UI.cf=null;draw()},
+  async shopAdd(id){const b=UI.buy[id],q=num(b&&b.q),a=num(b&&b.a);if(q<=0){toast('Matra likho');return}
+    await purchase(id,q,a)},
+  async buyManual(){const m=UI.mbuy,q=num(m.q),a=num(m.a);if(!m.item||q<=0){toast('Saman aur matra chuno');return}
+    await purchase(m.item,q,a);UI.mbuy={item:'',q:'',a:''};draw()},
+  async purDel(id){if(!ask('u'+id))return;await w(()=>db.doc('purch/'+id).delete())},
+  stockEdit(a){if(a==='new')UI.sedit={id:null,name:'',unit:'kg',price:'',qty:'0',orig:0};
+    else{const s=S.stock[a],q=stockNow()[a];const dq=+q.toFixed(3);UI.sedit={id:a,name:s.name,unit:s.unit,price:String(s.price),qty:String(dq),orig:dq}}draw()},
+  stockCancel(){UI.sedit=null;draw()},
+  async stockSave(){const e=UI.sedit,name=String(e.name).trim();if(!name){toast('Naam likho');return}
+    await w(async()=>{const ref=e.id?db.doc('stock/'+e.id):db.collection('stock').doc();
+      const data={name,unit:e.unit,price:num(e.price)};
+      if(e.id){const cur=S.stock[e.id];const same=Math.abs(num(e.qty)-e.orig)<0.0005;
+        data.qty=same?num(cur.qty):num(e.qty);data.asOf=same?(cur.asOf||todayS()):todayS()}
+      else{data.qty=num(e.qty);data.asOf=todayS()}
+      await ref.set(data);UI.sedit=null;toast('Stock save ho gaya');draw()})},
+  async stockDel(){if(!ask('sd'))return;await w(async()=>{await db.doc('stock/'+UI.sedit.id).delete();UI.sedit=null;draw()})},
+  dishEdit(a){if(a==='new')UI.dedit={id:null,name:'',extra:'0',ing:[{s:'',q:''}]};
+    else{const d=S.dishes[a];UI.dedit={id:a,name:d.name,extra:String(d.extra||0),ing:(d.ing||[]).map(i=>{const s=S.stock[i.s];return {s:i.s,q:String(s?toDisp(num(i.q),s.unit):i.q)}})}}
+    if(!UI.dedit.ing.length)UI.dedit.ing.push({s:'',q:''});draw()},
+  dishCancel(){UI.dedit=null;draw()},
+  ingAdd(){UI.dedit.ing.push({s:'',q:''});draw()},
+  ingDel(a){UI.dedit.ing.splice(+a,1);draw()},
+  async dishSave(){const e=UI.dedit,name=String(e.name).trim();if(!name){toast('Dish ka naam likho');return}
+    const ing=e.ing.filter(r=>r.s&&S.stock[r.s]&&num(r.q)>0).map(r=>({s:r.s,q:toBase(num(r.q),S.stock[r.s].unit)}));
+    await w(async()=>{const ref=e.id?db.doc('dishes/'+e.id):db.collection('dishes').doc();
+      await ref.set({name,extra:num(e.extra),ing});UI.dedit=null;toast('Dish save ho gayi');draw()})},
+  async dishDel(){if(!ask('dd'))return;await w(async()=>{await db.doc('dishes/'+UI.dedit.id).delete();UI.dedit=null;draw()})},
+  async doLogin(){const l=UI.lg;if(!l.p||!l.w){l.err='Phone aur password dono likho';draw();return}
+    l.err='';let msg='';try{msg=await loginWith(l.p,l.w)}catch(e){msg='Login nahi ho paya, dobara try karo'}
+    l.err=msg;if(!msg)l.w='';draw()},
+  logout(){UI.tab='today';UI.edit=null;auth.signOut()},
+  async mAdd(){const n=UI.nm,name=String(n.n).trim(),ph=cleanP(n.p),pw=String(n.w).trim();
+    if(!name){toast('Naam likho');return}if(ph.length<10){toast('10 digit ka phone likho');return}if(pw.length<6){toast('Password kam se kam 6 akshar ka rakho');return}
+    if(Object.values(S.members).some(m=>cleanP(m.phone)===ph)){toast('Ye number pehle se juda hai');return}
+    await w(async()=>{const mid=db.collection('members').doc().id;await setCred(mid,ph,pw);
+      await db.doc('members/'+mid).set({name,phone:ph,manual:true,since:todayS()});UI.nm={n:'',p:'',w:''};toast('Member jud gaya');draw()})},
+  pwOpen(a){UI.pwId=UI.pwId===a?null:a;UI.pwVal='';UI.pwP=(S.members[a]||{}).phone||'';draw()},
+  async pwSave(){const id=UI.pwId,m=S.members[id],ph=cleanP(UI.pwP),pw=String(UI.pwVal).trim();
+    if(ph.length<10){toast('10 digit ka phone likho');return}if(pw.length<6){toast('Password kam se kam 6 akshar ka rakho');return}
+    if(Object.keys(S.members).some(i=>i!==id&&cleanP(S.members[i].phone)===ph)){toast('Ye number kisi aur ka hai');return}
+    await w(async()=>{await setCred(id,ph,pw);await db.doc('members/'+id).set({...m,phone:ph,manual:true});UI.pwId=null;toast('Naya password set ho gaya');draw()})},
+  async selfMember(){await w(async()=>{const id=auth.currentUser.uid;await db.doc('members/'+id).set({name:'Admin',phone:ADMIN_PHONE,manual:true,since:todayS()});
+    await db.doc('uids/'+id).set({mid:id});me.id=id;toast('Aap member ban gaye');draw()})},
+  async memberOff(id){const m=S.members[id];await w(()=>db.doc('members/'+id).set({...m,off:!m.off}))},
+  async memberAdd(){const n=String(UI.newMember).trim();if(!n){toast('Naam likho');return}
+    await w(async()=>{await db.collection('members').doc().set({name:n,manual:true,since:todayS()});UI.newMember='';draw()})}
+};
+async function pay(amt,kind,mo){if(!me.id){toast('Aapki pehchaan nahi mili');return}if(amt<=0)return;
+  await w(async()=>{await db.collection('pay').add({uid:me.id,month:mo||UI.month,amt:Math.round(amt*100)/100,kind,date:todayS(),ts:Date.now()});toast(rupee(amt)+' jama ho gaye')})}
+async function purchase(id,q,a){await w(async()=>{const s=S.stock[id];
+  await db.collection('purch').add({item:id,qty:q,amt:a,date:todayS(),ts:Date.now()});
+  if(a>0&&q>0){await db.doc('stock/'+id).update({price:Math.round(a/q*100)/100})}
+  delete UI.buy[id];toast('Stock mein add ho gaya')})}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t||t.disabled)return;
+  const a=t.dataset.act;if(!/Del$/.test(a))UI.cf=null;if(ACT[a])ACT[a](t.dataset.a,t.dataset.b,t)});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('#payamt'))ACT.payPart()});
+
+/* ---------- boot ---------- */
+function sub(q,key){return q.onSnapshot(snap=>{const o={};snap.docs.forEach(d=>{o[d.id]=d.data()});S[key]=o;S.ready[key]=true;
+  if(key==='members'&&me.id&&o[me.id]&&o[me.id].name)me.name=o[me.id].name;
+  if(key==='members'&&!reg&&me.id&&canWrite&&!o[me.id]){reg=true;db.doc('members/'+me.id).set({since:todayS()}).catch(()=>{})}
+  schedule()},e=>{S.ready[key]=true;schedule()})}
+async function init(){
+  draw();if(!FB_OK)return;
+  try{firebase.initializeApp(FBC);auth=firebase.auth();db=firebase.firestore()}catch(e){toast('Firebase connect nahi hua');return}
+  authBusy=true;draw();
+  auth.onAuthStateChanged(async u=>{stopSubs();
+    if(!u){role=null;isAdmin=false;me={id:null,name:''};authBusy=false;draw();return}
+    isAdmin=(u.email||'').toLowerCase()===ADMIN_PHONE+'@panda.app';role=isAdmin?'admin':'family';
+    let mid=u.uid;
+    try{const sn=await db.doc('uids/'+u.uid).get();if(sn.exists)mid=sn.data().mid;else if(!isAdmin)throw 0;
+      if(!isAdmin)await db.doc('members/'+mid).get()}
+    catch(e){toast('Aapka access band hai. Admin se baat karo.');await auth.signOut();return}
+    me={id:mid,name:isAdmin?'Admin':''};startSubs();authBusy=false;draw()})}
+init();
+})();
+</script>
+
+</body></html>
